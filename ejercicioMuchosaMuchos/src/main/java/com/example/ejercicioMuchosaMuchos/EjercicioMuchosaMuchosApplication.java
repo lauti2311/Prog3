@@ -14,8 +14,7 @@ import org.springframework.context.annotation.Bean;
 public class EjercicioMuchosaMuchosApplication {
 	@Autowired
 	PersonaRepository personaRepository;
-	@Autowired
-	DomicilioRepository domicilioRepository;
+
 
 	public static void main(String[] args) {
 
@@ -23,7 +22,7 @@ public class EjercicioMuchosaMuchosApplication {
 
 	}
 	@Bean
-	CommandLineRunner init(PersonaRepository personaRepo, DomicilioRepository domicilioRepo) {
+	CommandLineRunner init(PersonaRepository personaRepo) {
 		return args -> {
 			System.out.println("-----------------ESTOY FUNCIONANDO---------");
 
@@ -55,23 +54,17 @@ Finalmente, build() crea la instancia
 					.edad(30)
 					.build();
 
-			Persona persona2 = Persona.builder()
-					.nombre("María")
-					.apellido("Gómez")
-					.edad(25)
-					.build();
+
 
 			// Agregar domicilios a las personas
 			persona1.agregarDomicilio(domicilio1);
 			persona1.agregarDomicilio(domicilio2);
 
-			persona2.agregarDomicilio(domicilio2);
-
 
 			// Asignar las personas a los domicilios
 			domicilio1.getPersonas().add(persona1);
 			domicilio2.getPersonas().add(persona1);
-			domicilio2.getPersonas().add(persona2);
+
 
 			// Guardar las personas y los domicilios en la base de datos
 
