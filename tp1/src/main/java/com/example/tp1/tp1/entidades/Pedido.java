@@ -27,9 +27,19 @@ public class Pedido implements Serializable {
     private double total;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
     private List<DetallePedido> detallesPedido;
 
     @OneToOne(cascade = CascadeType.ALL, optional = true)
     private Factura factura;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = true) // Esta es la relación con Domicilio
+    private Domicilio domicilio;
+
+    @ManyToOne // Esta es la relación con Cliente
+    private Cliente cliente;
+
+    @ManyToOne
+    private Usuario usuario;
 
 }

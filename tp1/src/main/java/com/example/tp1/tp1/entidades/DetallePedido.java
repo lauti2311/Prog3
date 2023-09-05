@@ -1,9 +1,6 @@
 package com.example.tp1.tp1.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +18,9 @@ public class DetallePedido implements Serializable {
     private Long id;
     private int cantidad;
     private double subtotal;
+    @ManyToOne
+    private Producto producto;
+    @ManyToOne
+    private Pedido pedido;
 
 }
