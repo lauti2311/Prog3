@@ -163,8 +163,6 @@ public class Tp1Application {
 // Asociar pedido2 a cliente2
 			cliente2.setPedidos(Collections.singletonList(pedido2));
 			clienteRepository.save(cliente2);
-// Mostrar mensajes de confirmación
-			System.out.println("Datos creados y asociados correctamente.");
 			Factura factura2 = Factura.builder().fecha("2023-09-07").numero(1).descuento(0.0).formaPago("TARJETA").total(200.0).build();
 			pedido2.setFactura(factura2); // Establecer la relación con la factura en Pedido
 			facturaRepository.save(factura2); // Guardar la factura después de guardar el pedido
