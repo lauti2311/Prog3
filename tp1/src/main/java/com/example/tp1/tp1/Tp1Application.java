@@ -30,7 +30,8 @@ public class Tp1Application {
 	ClienteRepository clienteRepository;
 	@Autowired
 	DomicilioRepository domicilioRepository;
-
+	@Autowired
+	ConfiguracionGeneralRepository configuracionGeneralRepository;
 	public static void main(String[] args) {
 
 
@@ -41,6 +42,13 @@ public class Tp1Application {
 	@Bean
 	public CommandLineRunner init(ClienteRepository clienteRepository, DetallePedidoRepository detallePedidoRepository, DomicilioRepository domicilioRepository, FacturaRepository facturaRepository, PedidoRepository pedidoRepository, ProductoRepository productoRepository, RubroRepository rubroRepository, UsuarioRepository usuarioRepository) {
 		return args -> {
+
+			ConfiguracionGeneral configuracionGeneral = new ConfiguracionGeneral();
+			configuracionGeneral.setCantidadCocineros(5);
+			configuracionGeneral.setEmailEmpresa("tp1@outlook.com");
+			configuracionGeneral.setTokenMercadoPago("empresa.prueba.tp1");
+
+			configuracionGeneralRepository.save(configuracionGeneral);
 
 			Usuario usuario1 = Usuario.builder().nombre("Jor").password("12345").rol("rol1").build();
 			usuarioRepository.save(usuario1);
