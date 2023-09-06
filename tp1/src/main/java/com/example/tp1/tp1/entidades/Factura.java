@@ -24,5 +24,5 @@ public class Factura implements Serializable {
     private int numero;
     private double descuento;
     private String formaPago;
-    private int total;
+    private double total;
 }
