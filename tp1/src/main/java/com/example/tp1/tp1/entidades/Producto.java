@@ -26,8 +26,6 @@ public class Producto implements Serializable {
     private String unidadMedida;
     private String foto;
     private String receta;
-    @ManyToOne
-    @JoinColumn(name = "rubro_id")
-    private Rubro rubro; // Agregar este campo y el método setRubro
+
 
 }

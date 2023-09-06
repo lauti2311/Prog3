@@ -24,7 +24,6 @@ public class Rubro implements Serializable {
         @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name = "rubro_id") // Nombre de la columna de clave externa en la tabla de Producto
         private List<Producto> productos;
-
         // Constructor, getters y setters
 }
 

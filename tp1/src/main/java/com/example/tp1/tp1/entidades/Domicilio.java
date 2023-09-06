@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,12 +24,13 @@ public class Domicilio implements Serializable {
     private String numero;
     private String localidad;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "domicilio_id") // Nombre de la columna de clave externa en la tabla de Pedido
-    private List<Pedido> pedidos;
+    @Builder.Default
+    private List<Pedido> pedidos = new ArrayList<>();
 
     // Relación unidireccional: un domicilio está asociado a un cliente
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id") // Nombre de la columna de clave externa en la tabla de Cliente
     private Cliente cliente;
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,20 +27,13 @@ public class Pedido implements Serializable {
     private String tipoEnvio;
     private double total;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_id")
-    private List<DetallePedido> detallesPedido;
+    @Builder.Default
+    private List<DetallePedido> detallesPedido = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Factura factura;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = true) // Esta es la relación con Domicilio
-    private Domicilio domicilio;
-
-    @ManyToOne // Esta es la relación con Cliente
-    private Cliente cliente;
-
-    @ManyToOne
-    private Usuario usuario;
 
 }
