@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,9 +22,17 @@ public class Rubro implements Serializable {
         private String denominacion;
 
         // Relación unidireccional: un rubro puede tener varios productos
-        @OneToMany(cascade = CascadeType.ALL)
+        @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
         @JoinColumn(name = "rubro_id") // Nombre de la columna de clave externa en la tabla de Producto
-        private List<Producto> productos;
-        // Constructor, getters y setters
+        @Builder.Default
+        private List<Producto> productos= new ArrayList<>();
+
+        public void agregarProducto(Producto producto) {
+                this.productos.add(producto);
+        }
+
 }
+
+
+
 

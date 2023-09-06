@@ -42,6 +42,18 @@ public class Tp1Application {
 	public CommandLineRunner init(ClienteRepository clienteRepository, DetallePedidoRepository detallePedidoRepository, DomicilioRepository domicilioRepository, FacturaRepository facturaRepository, PedidoRepository pedidoRepository, ProductoRepository productoRepository, RubroRepository rubroRepository, UsuarioRepository usuarioRepository) {
 		return args -> {
 
+			Usuario usuario1 = Usuario.builder().nombre("usuario1").password("contraseña1").rol("rol1").build();
+			usuarioRepository.save(usuario1);
+
+			Usuario usuario2 = Usuario.builder().nombre("usuario2").password("contraseña2").rol("rol2").build();
+			usuarioRepository.save(usuario2);
+
+			Rubro rubro1 = Rubro.builder().denominacion("Electrónica").build();
+			rubroRepository.save(rubro1);
+
+			Rubro rubro2 = Rubro.builder().denominacion("Ropa").build();
+			rubroRepository.save(rubro2);
+
 			Cliente cliente1 = Cliente.builder().nombre("Jorge").apellido("Perez").telefono("1626865321").email("jorge@gmail.com").build();
 			clienteRepository.save(cliente1);
 
@@ -49,6 +61,22 @@ public class Tp1Application {
 			Producto producto1 = Producto.builder().tipo("manufacturado").tiempoEstimadoCocina(10).denominacion("Televisor").precioVenta(500.0).precioCompra(400.0).stockActual(5).stockMinimo(2).unidadMedida("unidad").foto("foto").receta("receta").build();
 			Producto producto2 = Producto.builder().tipo("manufacturado").tiempoEstimadoCocina(15).denominacion("Laptop").precioVenta(800.0).precioCompra(700.0).stockActual(10).stockMinimo(5).unidadMedida("unidad").foto("foto").receta("receta").build();
 			productoRepository.saveAll(Arrays.asList(producto1, producto2));
+			rubro1.agregarProducto(producto1); // Asociar producto1 al rubro1
+			rubroRepository.save(rubro1);
+			rubro1.agregarProducto(producto2); // Asociar producto2 al rubro1
+			rubroRepository.save(rubro2);
+
+			Domicilio domicilioCliente1 = Domicilio.builder()
+					.calle("Calle 123")
+					.numero("123")
+					.localidad("Ciudad1")
+					.build();
+
+// Asociar el domicilio al cliente1
+
+
+// Guardar el domicilio en el repositorio de domicilios
+			domicilioRepository.save(domicilioCliente1);
 
 			// Crear un pedido para cliente1
 			Pedido pedido1 = Pedido.builder().fecha("2023-09-05").estado("EN CURSO").tipoEnvio("DELIVERY").total(200.0).build();
