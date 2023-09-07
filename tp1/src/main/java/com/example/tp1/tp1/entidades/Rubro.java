@@ -28,6 +28,7 @@ public class Rubro implements Serializable {
         private List<Producto> productos= new ArrayList<>();
 
         public void agregarProducto(Producto producto) {
+
                 this.productos.add(producto);
         }
 

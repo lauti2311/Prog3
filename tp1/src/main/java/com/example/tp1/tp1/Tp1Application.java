@@ -62,7 +62,8 @@ public class Tp1Application {
 
 			Rubro rubro2 = Rubro.builder().denominacion("Ropa").build();
 			rubroRepository.save(rubro2);
-//Creacion de cliente, se guarda en el repositorio y luego se crean dos productos
+
+			// Creación de cliente, se guarda en el repositorio y luego se crean dos productos
 			Cliente cliente1 = Cliente.builder()
 					.nombre("Jorge")
 					.apellido("Perez")
@@ -70,6 +71,7 @@ public class Tp1Application {
 					.email("jorge@gmail.com")
 					.build();
 			clienteRepository.save(cliente1);
+
 			Producto producto1 = Producto.builder()
 					.tipo(Producto.TipoProducto.MANUFACTURADO)
 					.tiempoEstimadoCocina(10)
@@ -82,10 +84,12 @@ public class Tp1Application {
 					.foto("foto")
 					.receta("receta")
 					.build();
+			productoRepository.save(producto1);
+
 			Producto producto2 = Producto.builder()
 					.tipo(Producto.TipoProducto.INSUMO)
 					.tiempoEstimadoCocina(15)
-					.denominacion("Laptop")
+					.denominacion("Camisa")
 					.precioVenta(800.0)
 					.precioCompra(700.0)
 					.stockActual(10)
@@ -94,22 +98,21 @@ public class Tp1Application {
 					.foto("foto")
 					.receta("receta")
 					.build();
+			productoRepository.save(producto2);
 
-			productoRepository.saveAll(Arrays.asList(producto1, producto2));
 			rubro1.agregarProducto(producto1);
-			rubroRepository.save(rubro1);
-			rubro2.agregarProducto(producto2);
-			rubroRepository.save(rubro2);
+			rubro1.agregarProducto(producto2);
+			rubroRepository.save(rubro1); // Aplicar los 2 productos a un solo rubro para demostrar la relación OneToMany
 
 			Domicilio domicilioCliente1 = Domicilio.builder()
 					.calle("Estrecho de San Carlos")
 					.numero("5")
 					.localidad("Las Heras")
 					.build();
-
 			domicilioRepository.save(domicilioCliente1);
 
-// Asocio un pedido para cliente1
+
+			// Asociar un pedido para cliente1
 			Pedido pedido1 = Pedido.builder()
 					.fecha("2023-09-05")
 					.horaEstimadaEntrega("15:25")
@@ -117,21 +120,25 @@ public class Tp1Application {
 					.tipoEnvio(Pedido.TipoEnvio.DELIVERY)
 					.total(200.0)
 					.build();
-// Asocio el domicilio al pedido1
+
+			// Asociar el domicilio al pedido1
 			domicilioCliente1.setCliente(cliente1);
 			domicilioCliente1.getPedidos().add(pedido1);
 			pedidoRepository.save(pedido1);
 			domicilioRepository.save(domicilioCliente1);
 			usuario1.getPedidos().add(pedido1);
 			usuarioRepository.save(usuario1);
-// Agregar detalles al pedido1
+
+			// Agregar detalles al pedido1
 			DetallePedido detalle1 = DetallePedido.builder().cantidad(2).subtotal(40.0).producto(producto1).build();
 			DetallePedido detalle2 = DetallePedido.builder().cantidad(3).subtotal(90.0).producto(producto2).build();
 			pedido1.setDetallesPedido(Arrays.asList(detalle1, detalle2));
-// Asociar pedido1 a cliente1
+
+			// Asociar pedido1 a cliente1
 			cliente1.setPedidos(Collections.singletonList(pedido1));
 			clienteRepository.save(cliente1);
-// Crear una factura para pedido1
+
+			// Crear una factura para pedido1
 			Factura factura1 = Factura.builder()
 					.fecha("15-11-2023")
 					.numero(1)
@@ -139,10 +146,14 @@ public class Tp1Application {
 					.formaPago(Factura.FormaPago.TARJETA)
 					.total(200.0)
 					.build();
-			pedido1.setFactura(factura1); // Establecer la relación con la factura en Pedido
-			facturaRepository.save(factura1); // Guardar la factura después de guardar el pedido
+
+			// Establecer la relación con la factura en Pedido
+			pedido1.setFactura(factura1);
+			// Guardar la factura después de guardar el pedido
+			facturaRepository.save(factura1);
 			pedidoRepository.save(pedido1);
-// Crear un cliente
+
+			// Crear un cliente
 			Cliente cliente2 = Cliente.builder()
 					.nombre("Lucas")
 					.apellido("Rodriguez")
@@ -150,13 +161,15 @@ public class Tp1Application {
 					.email("LRodriguez@gmail.com")
 					.build();
 			clienteRepository.save(cliente2);
+
 			Domicilio domicilioCliente2 = Domicilio.builder()
 					.calle("Av. Gral San Martin")
 					.numero("233")
 					.localidad("Mendoza")
 					.build();
 			domicilioRepository.save(domicilioCliente2);
-// Crear un pedido para cliente2
+
+			// Crear un pedido para cliente2
 			Pedido pedido2 = Pedido.builder()
 					.fecha("2023-09-06")
 					.horaEstimadaEntrega("21:00")
@@ -164,21 +177,25 @@ public class Tp1Application {
 					.tipoEnvio(Pedido.TipoEnvio.RETIRO)
 					.total(300.0)
 					.build();
-// Asocia el domicilio al pedido2
+
+			// Asociar el domicilio al pedido2
 			domicilioCliente2.setCliente(cliente2);
 			domicilioCliente2.getPedidos().add(pedido2);
 			pedidoRepository.save(pedido2);
 			domicilioRepository.save(domicilioCliente2);
 			usuario2.getPedidos().add(pedido2);
 			usuarioRepository.save(usuario2);
-// Agregar detalles al pedido2
+
+			// Agregar detalles al pedido2
 			DetallePedido detalle3 = DetallePedido.builder().cantidad(1).subtotal(30.0).producto(producto1).build();
 			DetallePedido detalle4 = DetallePedido.builder().cantidad(4).subtotal(120.0).producto(producto2).build();
 			pedido2.setDetallesPedido(Arrays.asList(detalle3, detalle4));
 			pedidoRepository.save(pedido2);
-// Asocio pedido2 a cliente2
+
+			// Asociar pedido2 a cliente2
 			cliente2.setPedidos(Collections.singletonList(pedido2));
 			clienteRepository.save(cliente2);
+
 			Factura factura2 = Factura.builder()
 					.fecha("2023-09-07")
 					.numero(1)
@@ -186,8 +203,11 @@ public class Tp1Application {
 					.formaPago(Factura.FormaPago.EFECTIVO)
 					.total(200.0)
 					.build();
-			pedido2.setFactura(factura2); // Establezco la relacion de factura y pedido
-			facturaRepository.save(factura2); // Guardamos la Factura
+
+			// Establecer la relación de factura y pedido
+			pedido2.setFactura(factura2);
+			// Guardar la Factura
+			facturaRepository.save(factura2);
 			pedidoRepository.save(pedido2);
 		};
 
