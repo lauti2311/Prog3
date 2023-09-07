@@ -70,7 +70,7 @@ public class Tp1Application {
 					.telefono("1626865321")
 					.email("jorge@gmail.com")
 					.build();
-			//clienteRepository.save(cliente1);
+			clienteRepository.save(cliente1);
 
 			Producto producto1 = Producto.builder()
 					.tipo(Producto.TipoProducto.MANUFACTURADO)
@@ -137,7 +137,7 @@ public class Tp1Application {
 
 			// Asociar pedido1 a cliente1
 			cliente1.setPedidos(Collections.singletonList(pedido1));
-			//clienteRepository.save(cliente1);
+			clienteRepository.save(cliente1);
 
 			// Crear una factura para pedido1
 			Factura factura1 = Factura.builder()
@@ -161,7 +161,7 @@ public class Tp1Application {
 					.telefono("2617587322")
 					.email("LRodriguez@gmail.com")
 					.build();
-			//clienteRepository.save(cliente2);
+			clienteRepository.save(cliente2);
 
 			Domicilio domicilioCliente2 = Domicilio.builder()
 					.calle("Av. Gral San Martin")

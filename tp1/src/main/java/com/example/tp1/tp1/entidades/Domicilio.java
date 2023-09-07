@@ -30,7 +30,7 @@ public class Domicilio implements Serializable {
     private List<Pedido> pedidos = new ArrayList<>();
 
     // Relacion de N domicilios a 1 cliente
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 }
