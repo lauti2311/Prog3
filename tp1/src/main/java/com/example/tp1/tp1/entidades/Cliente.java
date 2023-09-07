@@ -25,7 +25,7 @@ public class Cliente implements Serializable {
         private String telefono;
         private String email;
 
-
+        //Relacion de Uno a muchos de cliente con Pedido.
         @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name = "cliente_id")
         private List<Pedido> pedidos;

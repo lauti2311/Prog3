@@ -18,6 +18,7 @@ public class DetallePedido implements Serializable {
     private Long id;
     private int cantidad;
     private double subtotal;
+    //Relacion de DetallePedido a 1 Producto
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id")
     private Producto producto;

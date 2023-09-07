@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -61,7 +62,7 @@ public class Tp1Application {
 
 			Rubro rubro2 = Rubro.builder().denominacion("Ropa").build();
 			rubroRepository.save(rubro2);
-
+//Creacion de cliente, se guarda en el repositorio y luego se crean dos productos
 			Cliente cliente1 = Cliente.builder()
 					.nombre("Jorge")
 					.apellido("Perez")
@@ -70,7 +71,7 @@ public class Tp1Application {
 					.build();
 			clienteRepository.save(cliente1);
 			Producto producto1 = Producto.builder()
-					.tipo("manufacturado")
+					.tipo(Producto.TipoProducto.MANUFACTURADO)
 					.tiempoEstimadoCocina(10)
 					.denominacion("Televisor")
 					.precioVenta(500.0)
@@ -82,7 +83,7 @@ public class Tp1Application {
 					.receta("receta")
 					.build();
 			Producto producto2 = Producto.builder()
-					.tipo("manufacturado")
+					.tipo(Producto.TipoProducto.INSUMO)
 					.tiempoEstimadoCocina(15)
 					.denominacion("Laptop")
 					.precioVenta(800.0)
@@ -108,15 +109,15 @@ public class Tp1Application {
 
 			domicilioRepository.save(domicilioCliente1);
 
-// Crear un pedido para cliente1
+// Asocio un pedido para cliente1
 			Pedido pedido1 = Pedido.builder()
 					.fecha("2023-09-05")
 					.horaEstimadaEntrega("15:25")
-					.estado("EN CURSO")
-					.tipoEnvio("DELIVERY")
+					.estado(Pedido.EstadoPedido.INICIADO)
+					.tipoEnvio(Pedido.TipoEnvio.DELIVERY)
 					.total(200.0)
 					.build();
-// Asociar el domicilio al pedido1
+// Asocio el domicilio al pedido1
 			domicilioCliente1.setCliente(cliente1);
 			domicilioCliente1.getPedidos().add(pedido1);
 			pedidoRepository.save(pedido1);
@@ -131,11 +132,17 @@ public class Tp1Application {
 			cliente1.setPedidos(Collections.singletonList(pedido1));
 			clienteRepository.save(cliente1);
 // Crear una factura para pedido1
-			Factura factura1 = Factura.builder().fecha("2023-09-05").numero(1).descuento(0.0).formaPago("TARJETA").total(200.0).build();
+			Factura factura1 = Factura.builder()
+					.fecha("15-11-2023")
+					.numero(1)
+					.descuento(0.0)
+					.formaPago(Factura.FormaPago.TARJETA)
+					.total(200.0)
+					.build();
 			pedido1.setFactura(factura1); // Establecer la relación con la factura en Pedido
 			facturaRepository.save(factura1); // Guardar la factura después de guardar el pedido
 			pedidoRepository.save(pedido1);
-// Crear un cliente2
+// Crear un cliente
 			Cliente cliente2 = Cliente.builder()
 					.nombre("Lucas")
 					.apellido("Rodriguez")
@@ -153,10 +160,11 @@ public class Tp1Application {
 			Pedido pedido2 = Pedido.builder()
 					.fecha("2023-09-06")
 					.horaEstimadaEntrega("21:00")
-					.estado("EN CURSO").tipoEnvio("DELIVERY")
+					.estado(Pedido.EstadoPedido.PREPARACION)
+					.tipoEnvio(Pedido.TipoEnvio.RETIRO)
 					.total(300.0)
 					.build();
-// Asociar el domicilio al pedido2
+// Asocia el domicilio al pedido2
 			domicilioCliente2.setCliente(cliente2);
 			domicilioCliente2.getPedidos().add(pedido2);
 			pedidoRepository.save(pedido2);
@@ -168,12 +176,18 @@ public class Tp1Application {
 			DetallePedido detalle4 = DetallePedido.builder().cantidad(4).subtotal(120.0).producto(producto2).build();
 			pedido2.setDetallesPedido(Arrays.asList(detalle3, detalle4));
 			pedidoRepository.save(pedido2);
-// Asociar pedido2 a cliente2
+// Asocio pedido2 a cliente2
 			cliente2.setPedidos(Collections.singletonList(pedido2));
 			clienteRepository.save(cliente2);
-			Factura factura2 = Factura.builder().fecha("2023-09-07").numero(1).descuento(0.0).formaPago("TARJETA").total(200.0).build();
-			pedido2.setFactura(factura2); // Establecer la relación con la factura en Pedido
-			facturaRepository.save(factura2); // Guardar la factura después de guardar el pedido
+			Factura factura2 = Factura.builder()
+					.fecha("2023-09-07")
+					.numero(1)
+					.descuento(0.0)
+					.formaPago(Factura.FormaPago.EFECTIVO)
+					.total(200.0)
+					.build();
+			pedido2.setFactura(factura2); // Establezco la relacion de factura y pedido
+			facturaRepository.save(factura2); // Guardamos la Factura
 			pedidoRepository.save(pedido2);
 		};
 

@@ -1,9 +1,6 @@
 package com.example.tp1.tp1.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +20,12 @@ public class Factura implements Serializable {
     private String fecha;
     private int numero;
     private double descuento;
-    private String formaPago;
+    @Enumerated(EnumType.STRING)
+    private FormaPago formaPago;
     private double total;
+
+    public enum FormaPago {
+        EFECTIVO,
+        TARJETA
+    }
 }

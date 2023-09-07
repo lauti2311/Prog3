@@ -16,7 +16,8 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tipo; // manufacturado | insumo
+    @Enumerated(EnumType.STRING)
+    private TipoProducto tipo;
     private int tiempoEstimadoCocina;
     private String denominacion;
     private double precioVenta;
@@ -26,7 +27,10 @@ public class Producto implements Serializable {
     private String unidadMedida;
     private String foto;
     private String receta;
-
+    public enum TipoProducto {
+        MANUFACTURADO,
+        INSUMO
+    }
 
 }
 

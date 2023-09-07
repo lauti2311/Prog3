@@ -21,9 +21,9 @@ public class Rubro implements Serializable {
         private Long id;
         private String denominacion;
 
-        // Relación unidireccional: un rubro puede tener varios productos
+        //Relacion de rubro con producto, Un rubro a Muchos productos.
         @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-        @JoinColumn(name = "rubro_id") // Nombre de la columna de clave externa en la tabla de Producto
+        @JoinColumn(name = "rubro_id")
         @Builder.Default
         private List<Producto> productos= new ArrayList<>();
 

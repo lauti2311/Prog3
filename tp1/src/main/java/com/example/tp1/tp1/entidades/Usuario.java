@@ -23,8 +23,8 @@ public class Usuario implements Serializable {
     private String password;
     private String rol;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id") // Nombre de la columna de clave externa en la tabla de Pedido
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER) //Hacemos la relacion con Pedido
+    @JoinColumn(name = "usuario_id")
     @Builder.Default
     private List<Pedido> pedidos = new ArrayList<>();
 }

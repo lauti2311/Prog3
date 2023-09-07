@@ -22,18 +22,30 @@ public class Pedido implements Serializable {
 
     private Long id;
     private String fecha;
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estado;
     private String horaEstimadaEntrega;
-    private String tipoEnvio;
+    @Enumerated(EnumType.STRING)
+    private TipoEnvio tipoEnvio;
     private double total;
-
+    //Hacemos la relacion de 1 pedido a N detallesPedido
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_id")
     @Builder.Default
     private List<DetallePedido> detallesPedido = new ArrayList<>();
-
+    //Relacion uno a uno con Factura
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Factura factura;
 
+    public enum EstadoPedido {
+        INICIADO,
+        PREPARACION,
+        ENTREGADO
+    }
+
+    public enum TipoEnvio {
+        DELIVERY,
+        RETIRO
+    }
 
 }

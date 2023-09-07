@@ -23,14 +23,14 @@ public class Domicilio implements Serializable {
     private String calle;
     private String numero;
     private String localidad;
-
+    //Relacion de Un Domicilio a Muchos Pedidos
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "domicilio_id") // Nombre de la columna de clave externa en la tabla de Pedido
+    @JoinColumn(name = "domicilio_id")
     @Builder.Default
     private List<Pedido> pedidos = new ArrayList<>();
 
-    // Relación unidireccional: un domicilio está asociado a un cliente
+    // Relacion de N domicilios a 1 cliente
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cliente_id") // Nombre de la columna de clave externa en la tabla de Cliente
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 }
