@@ -70,7 +70,7 @@ public class Tp1Application {
 					.telefono("1626865321")
 					.email("jorge@gmail.com")
 					.build();
-			clienteRepository.save(cliente1);
+			//clienteRepository.save(cliente1);
 
 			Producto producto1 = Producto.builder()
 					.tipo(Producto.TipoProducto.MANUFACTURADO)
@@ -108,6 +108,7 @@ public class Tp1Application {
 					.calle("Estrecho de San Carlos")
 					.numero("5")
 					.localidad("Las Heras")
+					.cliente(cliente1)
 					.build();
 			domicilioRepository.save(domicilioCliente1);
 
@@ -122,7 +123,7 @@ public class Tp1Application {
 					.build();
 
 			// Asociar el domicilio al pedido1
-			domicilioCliente1.setCliente(cliente1);
+			//domicilioCliente1.setCliente(cliente1);
 			domicilioCliente1.getPedidos().add(pedido1);
 			pedidoRepository.save(pedido1);
 			domicilioRepository.save(domicilioCliente1);
@@ -136,7 +137,7 @@ public class Tp1Application {
 
 			// Asociar pedido1 a cliente1
 			cliente1.setPedidos(Collections.singletonList(pedido1));
-			clienteRepository.save(cliente1);
+			//clienteRepository.save(cliente1);
 
 			// Crear una factura para pedido1
 			Factura factura1 = Factura.builder()
@@ -160,12 +161,13 @@ public class Tp1Application {
 					.telefono("2617587322")
 					.email("LRodriguez@gmail.com")
 					.build();
-			clienteRepository.save(cliente2);
+			//clienteRepository.save(cliente2);
 
 			Domicilio domicilioCliente2 = Domicilio.builder()
 					.calle("Av. Gral San Martin")
 					.numero("233")
 					.localidad("Mendoza")
+					.cliente(cliente2)
 					.build();
 			domicilioRepository.save(domicilioCliente2);
 
@@ -179,7 +181,7 @@ public class Tp1Application {
 					.build();
 
 			// Asociar el domicilio al pedido2
-			domicilioCliente2.setCliente(cliente2);
+			//domicilioCliente2.setCliente(cliente2);
 			domicilioCliente2.getPedidos().add(pedido2);
 			pedidoRepository.save(pedido2);
 			domicilioRepository.save(domicilioCliente2);
@@ -210,6 +212,5 @@ public class Tp1Application {
 			facturaRepository.save(factura2);
 			pedidoRepository.save(pedido2);
 		};
-
 	}
 }
