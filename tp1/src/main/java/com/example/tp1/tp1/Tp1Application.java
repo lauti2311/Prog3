@@ -2,16 +2,14 @@ package com.example.tp1.tp1;
 
 import com.example.tp1.tp1.entidades.*;
 import com.example.tp1.tp1.repositorios.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 public class Tp1Application {
@@ -41,6 +39,7 @@ public class Tp1Application {
 	}
 
 	@Bean
+	@Transactional
 	public CommandLineRunner init(ClienteRepository clienteRepository, DetallePedidoRepository detallePedidoRepository, DomicilioRepository domicilioRepository, FacturaRepository facturaRepository, PedidoRepository pedidoRepository, ProductoRepository productoRepository, RubroRepository rubroRepository, UsuarioRepository usuarioRepository) {
 		return args -> {
 
@@ -69,6 +68,7 @@ public class Tp1Application {
 					.apellido("Perez")
 					.telefono("1626865321")
 					.email("jorge@gmail.com")
+					.pedidos(new ArrayList<>())
 					.build();
 			clienteRepository.save(cliente1);
 
@@ -136,7 +136,7 @@ public class Tp1Application {
 			pedido1.setDetallesPedido(Arrays.asList(detalle1, detalle2));
 
 			// Asociar pedido1 a cliente1
-			cliente1.setPedidos(Collections.singletonList(pedido1));
+			cliente1.getPedidos().add(pedido1);
 			clienteRepository.save(cliente1);
 
 			// Crear una factura para pedido1
@@ -160,6 +160,7 @@ public class Tp1Application {
 					.apellido("Rodriguez")
 					.telefono("2617587322")
 					.email("LRodriguez@gmail.com")
+					.pedidos(new ArrayList<>())
 					.build();
 			clienteRepository.save(cliente2);
 
@@ -195,7 +196,7 @@ public class Tp1Application {
 			pedidoRepository.save(pedido2);
 
 			// Asociar pedido2 a cliente2
-			cliente2.setPedidos(Collections.singletonList(pedido2));
+			cliente2.getPedidos().add(pedido2);
 			clienteRepository.save(cliente2);
 
 			Factura factura2 = Factura.builder()
@@ -211,6 +212,21 @@ public class Tp1Application {
 			// Guardar la Factura
 			facturaRepository.save(factura2);
 			pedidoRepository.save(pedido2);
+
+			Cliente clienteRecuperado = clienteRepository.findById(cliente1.getId()).orElse(null);
+			if (clienteRecuperado != null) {
+				clienteRecuperado.mostrarPedidos();
+			} else {
+				System.out.println("Cliente no encontrado.");
+			}
+
+			Cliente clienteRecuperado2 = clienteRepository.findById(cliente2.getId()).orElse(null);
+			if (clienteRecuperado2 != null) {
+				clienteRecuperado2.mostrarPedidos();
+			} else {
+				System.out.println("Cliente no encontrado.");
+			}
+
 		};
 	}
 }
