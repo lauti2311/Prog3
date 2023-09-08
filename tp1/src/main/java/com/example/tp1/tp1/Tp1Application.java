@@ -215,12 +215,29 @@ public class Tp1Application {
 
 			Cliente clienteRecuperado = clienteRepository.findById(cliente1.getId()).orElse(null);
 			if (clienteRecuperado != null) {
+				System.out.println("Datos del Cliente 1:");
+				System.out.println("Nombre: " + clienteRecuperado.getNombre());
+				System.out.println("Apellido: " + clienteRecuperado.getApellido());
+				System.out.println("Email: " + clienteRecuperado.getEmail());
+			} else {
+				System.out.println("Cliente 1 no encontrado.");
+			}
+
+			if (clienteRecuperado != null) {
 				clienteRecuperado.mostrarPedidos();
 			} else {
 				System.out.println("Cliente no encontrado.");
 			}
 
 			Cliente clienteRecuperado2 = clienteRepository.findById(cliente2.getId()).orElse(null);
+			if (clienteRecuperado2 != null) {
+				System.out.println("\nDatos del Cliente 2:");
+				System.out.println("Nombre: " + clienteRecuperado2.getNombre());
+				System.out.println("Apellido: " + clienteRecuperado2.getApellido());
+				System.out.println("Email: " + clienteRecuperado2.getEmail());
+			} else {
+				System.out.println("Cliente 2 no encontrado.");
+			}
 			if (clienteRecuperado2 != null) {
 				clienteRecuperado2.mostrarPedidos();
 			} else {
