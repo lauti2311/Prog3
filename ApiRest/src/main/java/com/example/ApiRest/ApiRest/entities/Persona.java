@@ -31,7 +31,7 @@ public class Persona extends Base {
     @JoinColumn(name = "fk_domicilio")
     private Domicilio domicilio;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //Orphan sirve para cuando eliminemos una persona, tambien eliminamos los libros que le pertenecen
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true) //Orphan sirve para cuando eliminemos una persona, tambien eliminamos los libros que le pertenecen
     @JoinTable(
             name = "persona_libro",
             joinColumns = @JoinColumn(name = "persona_id"),

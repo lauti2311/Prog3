@@ -38,3 +38,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+	manifest {
+		attributes 'ApiRestApplication': 'package com.example.ApiRest.ApiRest.ApiRestApplication' // Reemplaza 'tu.paquete.MainClass' con la clase principal de tu aplicación
+	}
+}
